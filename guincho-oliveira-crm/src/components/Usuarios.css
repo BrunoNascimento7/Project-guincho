@@ -1,0 +1,226 @@
+/* src/components/Usuarios.css */
+.usuarios-container {
+    padding: 20px;
+    background-color: var(--background-color, #f7f9fc);
+    min-height: 100vh;
+}
+.usuarios-header {
+    color: var(--primary-color, #101C5D);
+    margin-bottom: 20px;
+    text-align: center;
+}
+.usuarios-main-content {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+.coluna-form {
+    flex: 1;
+    min-width: 350px;
+}
+.coluna-lista, .coluna-lista-full {
+    flex: 2;
+    min-width: 400px;
+}
+.coluna-lista-full {
+    flex-grow: 1;
+}
+.usuario-form-card, .usuario-list-card {
+    background-color: var(--card-bg-color, #ffffff);
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.07);
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+.form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+}
+.form-group {
+    margin-bottom: 15px;
+}
+.form-group.full-width {
+    grid-column: 1 / -1;
+}
+.form-group label {
+    display: block;
+    font-weight: bold;
+    color: var(--text-color, #333);
+    margin-bottom: 5px;
+}
+.form-group input, .form-group select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid var(--border-color, #ddd);
+    border-radius: 4px;
+}
+.submit-button {
+    width: 100%;
+    padding: 12px;
+    background-color: var(--primary-color, #FF8C00);
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+.submit-button:hover {
+    background-color: #e57e00;
+}
+.search-input {
+    width: 100%;
+    padding: 10px 15px;
+    border-radius: 5px;
+    border: 1px solid var(--border-color, #ddd);
+    font-size: 1em;
+}
+.usuario-list-card h3 {
+    color: var(--primary-color, #101C5D);
+    margin-bottom: 15px;
+}
+.usuario-list {
+    list-style: none;
+    padding: 0;
+    overflow-y: auto;
+    flex-grow: 1;
+    padding-right: 10px;
+}
+.usuario-list li {
+    background-color: var(--background-color, #f7f9fc);
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    border-left: 4px solid var(--primary-color, #FF8C00);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    transition: background-color 0.2s;
+}
+.usuario-list li:hover {
+    background-color: #f0f0f0;
+}
+.usuario-info {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+.user-avatar {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+.usuario-info div {
+    display: flex;
+    flex-direction: column;
+}
+.usuario-actions button {
+    padding: 6px 12px;
+    border: none;
+    border-radius: 4px;
+    color: white;
+    cursor: pointer;
+    margin-left: 5px;
+}
+.edit-button { background-color: #007bff; }
+.delete-button { background-color: #dc3545; }
+.block-button { background-color: #ffc107; color: #212529; }
+.unblock-button { background-color: #28a745; }
+.usuario-list li.bloqueado { background-color: #f8d7da; border-left-color: #dc3545; }
+.status-bloqueado { font-weight: bold; color: #dc3545; font-size: 0.9em; }
+.modal-note { font-size: 0.9em; color: #6c757d; text-align: center; margin-top: 15px; }
+.modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.6); display: flex; justify-content: center; align-items: center; z-index: 1000; }
+.modal-content { background-color: var(--card-bg-color, #fff); padding: 30px; border-radius: 10px; box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3); position: relative; width: 90%; max-width: 500px; }
+.modal-close-button { position: absolute; top: 10px; right: 10px; background: none; border: none; font-size: 1.8em; cursor: pointer; color: #888; }
+.modal-content.modal-lg { max-width: 750px; }
+.modal-tabs { display: flex; border-bottom: 1px solid var(--border-color, #ddd); margin-bottom: 20px; }
+.modal-tabs button { padding: 10px 20px; border: none; background-color: transparent; cursor: pointer; font-size: 1.1em; color: #555; border-bottom: 3px solid transparent; transition: all 0.2s ease; }
+.modal-tabs button.active { border-bottom-color: #007bff; color: #007bff; font-weight: bold; }
+.tab-content { padding: 10px 0; }
+.dias-semana { display: flex; justify-content: space-around; margin-bottom: 20px; background-color: var(--background-color, #f7f9fc); padding: 15px; border-radius: 8px; }
+.dias-semana .dia-checkbox { display: flex; flex-direction: column; align-items: center; gap: 5px; }
+.dias-semana input[type="checkbox"] { width: 20px; height: 20px; }
+.horarios { display: flex; gap: 20px; justify-content: center; margin-bottom: 25px; }
+.horarios .form-group input[type="time"] { font-size: 1.2em; padding: 8px; }
+
+.list-header-controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+.bulk-actions-container {
+    position: relative;
+}
+.bulk-actions-button {
+    background-color: #101C5D;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 0.9em;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+.bulk-actions-dropdown {
+    position: absolute;
+    top: 45px;
+    right: 0;
+    width: 200px;
+    background-color: var(--card-bg-color, #fff);
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+.bulk-actions-dropdown button {
+    background: none;
+    border: none;
+    text-align: left;
+    padding: 12px 15px;
+    font-size: 0.9em;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+.bulk-actions-dropdown button:hover {
+    background-color: #f0f0f0;
+}
+.header-checkbox {
+    width: 30px;
+    text-align: center;
+}
+.checkbox-container {
+    width: 30px;
+    text-align: center;
+}
+.usuario-list .list-header {
+    background-color: var(--background-color, #e9ecef);
+    padding: 10px 15px;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+.logout-force-button {
+    background-color: #ffc107;
+    color: #212529;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    font-size: 0.8em;
+    font-weight: 500;
+}
+.logout-force-button:hover {
+    background-color: #e0a800;
+}

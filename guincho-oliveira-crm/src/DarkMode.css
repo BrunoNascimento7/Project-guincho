@@ -1,0 +1,102 @@
+/* ============================================================ */
+/* ESTILOS GLOBAIS PARA O TEMA ESCURO                           */
+/* A classe .dark-mode é adicionada ao <body> pelo App.js       */
+/* ============================================================ */
+
+body.dark-mode {
+    background-color: #121212;
+    color: #e0e0e0;
+}
+
+/* Fundo principal do dashboard */
+.dark-mode .dashboard-main {
+    background-color: #121212;
+}
+
+/* Cards, Modais e Dropdowns */
+.dark-mode .agenda-card,
+.dark-mode .about-section,
+.dark-mode .modal-content,
+.dark-mode .profile-dropdown {
+    background-color: #1e1e1e;
+    color: #e0e0e0;
+    border: 1px solid #333;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5);
+}
+
+/* Títulos principais */
+.dark-mode .welcome-section-header,
+.dark-mode .agenda-card h2,
+.dark-mode .about-section h2,
+.dark-mode .modal-content h3 {
+    color: #bb86fc; /* Roxo claro para destaque */
+}
+
+/* Textos secundários */
+.dark-mode .welcome-section-text,
+.dark-mode .about-section p,
+.dark-mode .profile-name {
+    color: #b0b0b0;
+}
+
+/* Itens de lista e links */
+.dark-mode .agenda-list li {
+    background-color: #2c2c2c;
+    color: #e0e0e0;
+    border-left-color: #bb86fc;
+}
+
+.dark-mode .agenda-list li:hover {
+    background-color: #383838;
+}
+
+/* Calendário */
+.dark-mode .react-calendar {
+    background-color: #1e1e1e;
+    border: 1px solid #333;
+}
+.dark-mode .react-calendar__navigation button,
+.dark-mode .react-calendar__month-view__weekdays__weekday,
+.dark-mode .react-calendar__tile {
+    color: #e0e0e0;
+}
+.dark-mode .react-calendar__tile:enabled:hover,
+.dark-mode .react-calendar__tile:enabled:focus {
+    background-color: #383838;
+}
+.dark-mode .react-calendar__tile--now {
+    background: #4a4a4a;
+}
+.dark-mode .react-calendar__tile--active {
+    background: #bb86fc;
+    color: #121212;
+}
+.dark-mode .highlight-day {
+    background-color: #FF8C00 !important;
+    color: #121212 !important;
+}
+
+/* Dropdown do Perfil */
+.dark-mode .profile-dropdown .dropdown-header strong {
+    color: #e0e0e0;
+}
+.dark-mode .profile-dropdown .user-profile-role {
+    color: #b0b0b0;
+}
+.dark-mode .profile-dropdown .dropdown-divider {
+    background-color: #333;
+}
+.dark-mode .profile-dropdown .dropdown-item {
+    color: #e0e0e0;
+}
+.dark-mode .profile-dropdown .dropdown-item:hover {
+    background-color: #2c2c2c;
+}
+.dark-mode .theme-toggle-switch input:checked + .slider {
+    background-color: #bb86fc;
+}
+
+/* Detalhes da OS no Modal */
+.dark-mode .os-details strong {
+    color: #bb86fc;
+}

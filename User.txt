@@ -1,0 +1,11 @@
+ "email": "admin@guinchooliveira.com",
+  "senha": "Project2025",
+
+
+"email": "admin@empresa.com",
+  "senha": "senhaforte123",
+
+
+Senha - User bD
+
+Project2025

@@ -1,0 +1,184 @@
+CREATE DATABASE `guincho_oliveira_db`;
+CREATE USER 'guincho_user'@'localhost' IDENTIFIED BY 'senhaforte123';
+GRANT ALL PRIVILEGES ON `guincho_oliveira_db`.* TO 'guincho_user'@'localhost';
+FLUSH PRIVILEGES;
+
+
+
+USE guincho_oliveira_db;
+
+CREATE TABLE IF NOT EXISTS usuarios (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(255) NOT NULL,
+    email VARCHAR(255) UNIQUE NOT NULL,
+    senha VARCHAR(255) NOT NULL,
+    perfil VARCHAR(255) NOT NULL,
+    matricula VARCHAR(255),
+    cpf VARCHAR(255),
+    filial VARCHAR(255),
+    cargo VARCHAR(255),
+    centroDeCusto VARCHAR(255)
+);
+
+CREATE TABLE IF NOT EXISTS clientes (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(255) NOT NULL,
+    telefone VARCHAR(255),
+    email VARCHAR(255),
+    endereco VARCHAR(255),
+    cpf_cnpj VARCHAR(255)
+);
+
+CREATE TABLE IF NOT EXISTS motoristas (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(255) NOT NULL,
+    cnh_numero VARCHAR(255),
+    categoria_cnh VARCHAR(255),
+    telefone VARCHAR(255),
+    email VARCHAR(255)
+);
+
+CREATE TABLE IF NOT EXISTS veiculos (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    placa VARCHAR(255) UNIQUE NOT NULL,
+    modelo VARCHAR(255),
+    marca VARCHAR(255),
+    ano INT,
+    status VARCHAR(255),
+    motorista_id INT,
+    FOREIGN KEY(motorista_id) REFERENCES motoristas(id)
+);
+
+CREATE TABLE IF NOT EXISTS ordens_servico (
+    id VARCHAR(10) PRIMARY KEY,
+    cliente_id INT,
+    motorista_id INT,
+    veiculo_id INT,
+    local_atendimento TEXT,
+    descricao TEXT,
+    data_hora DATETIME,
+    status VARCHAR(255),
+    valor FLOAT,
+    forma_atendimento VARCHAR(255),
+    data_resolucao DATE,
+    notas TEXT,
+    FOREIGN KEY(cliente_id) REFERENCES clientes(id),
+    FOREIGN KEY(motorista_id) REFERENCES motoristas(id),
+    FOREIGN KEY(veiculo_id) REFERENCES veiculos(id)
+);
+
+CREATE TABLE IF NOT EXISTS financeiro (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    tipo VARCHAR(255),
+    descricao TEXT,
+    valor FLOAT,
+    data DATE,
+    motorista_id INT,
+    FOREIGN KEY(motorista_id) REFERENCES motoristas(id)
+);
+
+-- Para adicionar novas colunas à tabela 'usuarios'
+ALTER TABLE usuarios
+ADD COLUMN matricula VARCHAR(255),
+ADD COLUMN cpf VARCHAR(255),
+ADD COLUMN filial VARCHAR(255),
+ADD COLUMN cargo VARCHAR(255),
+ADD COLUMN centroDeCusto VARCHAR(255);
+
+-- Para adicionar a coluna 'email' à tabela 'motoristas'
+ALTER TABLE motoristas ADD COLUMN email VARCHAR(255);
+
+-- Para adicionar colunas à tabela 'ordens_servico'
+ALTER TABLE ordens_servico
+ADD COLUMN data_resolucao DATE,
+ADD COLUMN notas TEXT;
+
+-- Para alterar a senha de um usuário
+ALTER USER 'guincho_user'@'localhost' IDENTIFIED BY 'senhaforte123';
+FLUSH PRIVILEGES;
+
+
+
+
+USE guincho_oliveira_db;
+ALTER TABLE ordens_servico
+ADD COLUMN valor_custos DECIMAL(10, 2) NOT NULL DEFAULT 0.00,
+ADD COLUMN lucro DECIMAL(10, 2) NOT NULL DEFAULT 0.00;
+
+ALTER TABLE financeiro
+ADD COLUMN os_id VARCHAR(20) NULL DEFAULT NULL;
+
+CREATE TABLE categorias_financeiras (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  nome VARCHAR(100) NOT NULL,
+  tipo ENUM('Receita', 'Despesa') NOT NULL
+);
+
+
+INSERT INTO categorias_financeiras (nome, tipo) VALUES
+('Receita de Serviço (OS)', 'Receita'),
+('Venda de Peças', 'Receita'),
+('Outras Receitas', 'Receita'),
+('Combustível', 'Despesa'),
+('Pedágio', 'Despesa'),
+('Manutenção do Veículo', 'Despesa'),
+('Salário de Motorista', 'Despesa'),
+('Impostos', 'Despesa'),
+('Aluguel', 'Despesa'),
+('Outras Despesas', 'Despesa');
+
+ALTER TABLE financeiro
+ADD COLUMN categoria_id INT NULL,
+ADD CONSTRAINT fk_categoria
+FOREIGN KEY (categoria_id) REFERENCES categorias_financeiras(id);
+
+CREATE TABLE configuracoes (
+  chave VARCHAR(50) PRIMARY KEY,
+  valor VARCHAR(255) NOT NULL
+);
+
+
+INSERT INTO configuracoes (chave, valor) VALUES ('meta_lucro_mensal', '10000');
+
+
+ALTER TABLE usuarios
+ADD COLUMN status VARCHAR(20) NOT NULL DEFAULT 'ativo';
+
+
+UPDATE usuarios 
+SET perfil = 'admin_geral' 
+WHERE email = 'admin@guinchooliveira.com';
+
+ALTER TABLE usuarios
+ADD COLUMN foto_perfil MEDIUMTEXT NULL COMMENT 'Armazena a foto de perfil em Base64',
+ADD COLUMN tema VARCHAR(10) NOT NULL DEFAULT 'light' COMMENT 'Preferência de tema do usuário (light/dark)';
+
+ALTER TABLE usuarios
+ADD COLUMN regras_acesso JSON NULL 
+COMMENT 'Armazena regras de acesso, ex: {"dias": [1,2,3,4,5], "inicio": "09:00", "fim": "18:00"}';
+
+ALTER TABLE `notas_chamado`
+ADD COLUMN `tipo` VARCHAR(50) NULL DEFAULT 'nota' AFTER `nota`,
+ADD COLUMN `nome_anexo` VARCHAR(255) NULL AFTER `tipo`,
+ADD COLUMN `url_anexo` LONGTEXT NULL AFTER `nome_anexo`;
+
+
+CREATE TABLE logs_sistema (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    usuario_id INT,
+    usuario_nome VARCHAR(255),
+    acao VARCHAR(255) NOT NULL,
+    detalhes TEXT
+);
+
+CREATE TABLE revoked_tokens (
+    token VARCHAR(255) PRIMARY KEY,
+    expiry TIMESTAMP
+);
+
+ALTER TABLE usuarios ADD COLUMN last_logout_at TIMESTAMP NULL;
+
+ALTER TABLE usuarios MODIFY COLUMN senha VARCHAR(255) NOT NULL;
+
+

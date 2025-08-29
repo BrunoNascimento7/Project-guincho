@@ -9,11 +9,6 @@ const XLSX = require('xlsx');
 
 require('dotenv').config();
 
-app.use(cors({
-  origin: 'http://localhost:3000', // A origem do seu frontend React
-  methods: ['GET', 'POST', 'PUT', 'DELETE'],
-  allowedHeaders: ['Content-Type', 'Authorization']
-}));
 app.use(express.json({ limit: '10mb' })); // Limite para upload de fotos
 
 const SECRET_KEY = 'guincho_oliveira_secret';
